@@ -1,26 +1,22 @@
 {
   "packages": [
     {
-      "name": "esp32",
-      "maintainer": "Espressif Systems",
-      "websiteURL": "https://github.com/espressif/arduino-esp32",
-      "email": "hristo@espressif.com",
+      "name": "fobe",
+      "maintainer": "FoBE Studio",
+      "websiteURL": "https://docs.fobestudio.com/",
       "help": {
-        "online": "http://esp32.com"
+        "online": "https://docs.fobestudio.com/"
       },
       "platforms": [
         {
-          "name": "esp32",
+          "name": "FoBE ESP32",
           "architecture": "esp32",
           "version": "",
-          "category": "ESP32",
+          "category": "Contributed",
           "url": "",
           "archiveFileName": "",
           "checksum": "",
           "size": "",
-          "help": {
-            "online": ""
-          },
           "boards": [
             {
               "name": "ESP32 Dev Board"
@@ -49,47 +45,47 @@
           ],
           "toolsDependencies": [
             {
-              "packager": "esp32",
+              "packager": "fobe",
               "name": "esp32-arduino-libs",
               "version": "idf-release_v5.5-b66b5448-v1"
             },
             {
-              "packager": "esp32",
+              "packager": "fobe",
               "name": "xtensa-esp-elf-gcc",
               "version": "esp-14.2.0_20241119"
             },
             {
-              "packager": "esp32",
+              "packager": "fobe",
               "name": "xtensa-esp-elf-gdb",
               "version": "16.2_20250324"
             },
             {
-              "packager": "esp32",
+              "packager": "fobe",
               "name": "riscv32-esp-elf-gcc",
               "version": "esp-14.2.0_20241119"
             },
             {
-              "packager": "esp32",
+              "packager": "fobe",
               "name": "riscv32-esp-elf-gdb",
               "version": "16.2_20250324"
             },
             {
-              "packager": "esp32",
+              "packager": "fobe",
               "name": "openocd-esp32",
               "version": "v0.12.0-esp32-20250422"
             },
             {
-              "packager": "esp32",
+              "packager": "fobe",
               "name": "esptool_py",
               "version": "5.0.2"
             },
             {
-              "packager": "esp32",
+              "packager": "fobe",
               "name": "mkspiffs",
               "version": "0.2.3"
             },
             {
-              "packager": "esp32",
+              "packager": "fobe",
               "name": "mklittlefs",
               "version": "3.0.0-gnu12-dc7f933"
             },
