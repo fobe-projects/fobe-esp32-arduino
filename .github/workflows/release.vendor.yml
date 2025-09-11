@@ -1,0 +1,46 @@
+name: Vendor Release
+
+on:
+  release:
+    types: published
+
+jobs:
+  build:
+    name: Publish Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.0.4
+        with:
+          python-version: 3.x
+
+      - name: Install packaging
+        run: pip install packaging
+
+      - name: Install pyserial
+        run: pip install pyserial
+
+      - name: Build Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash ./.github/scripts/on-release.vendor.sh
+
+      - name: Publish firmware to fobe-projects.github.io
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          deploy_key: ${{ secrets.FOBE_ARTIFACT_PAGES_DEPLOY_KEY }}
+          external_repository: fobe-projects/fobe-projects.github.io
+          publish_branch: main
+          publish_dir: ./build
+          destination_dir: arduino/esp32/${{ github.ref_name }}
+          keep_files: true
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
+          commit_message: arduino/esp32/${{ github.ref_name }}
+          enable_jekyll: true

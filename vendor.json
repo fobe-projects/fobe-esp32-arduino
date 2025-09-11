@@ -1,0 +1,13 @@
+{
+  "boards": ["fobe_quill_esp32s3_mesh"],
+  "platform_name": "FoBE ESP32 Arduino",
+  "packager": "fobe",
+  "maintainer": "FoBE Studio",
+  "website": "https://docs.fobestudio.com",
+  "email": "contact@fobestudio.com",
+  "category": "Contributed",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fobe-projects/fobe-esp32-arduino"
+  }
+}
