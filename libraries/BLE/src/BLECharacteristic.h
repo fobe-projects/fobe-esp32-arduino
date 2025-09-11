@@ -62,7 +62,7 @@
 
 #if defined(CONFIG_NIMBLE_ENABLED)
 typedef uint16_t esp_gatt_char_prop_t;
-typedef uint8_t esp_gatt_perm_t;
+typedef uint16_t esp_gatt_perm_t;
 #endif
 
 /***************************************************************************
@@ -85,13 +85,13 @@ public:
   void setByUUID(const char *uuid, BLEDescriptor *pDescriptor);
   void setByUUID(BLEUUID uuid, BLEDescriptor *pDescriptor);
   void setByHandle(uint16_t handle, BLEDescriptor *pDescriptor);
-  BLEDescriptor *getByUUID(const char *uuid);
-  BLEDescriptor *getByUUID(BLEUUID uuid);
-  BLEDescriptor *getByHandle(uint16_t handle);
-  String toString();
+  BLEDescriptor *getByUUID(const char *uuid) const;
+  BLEDescriptor *getByUUID(BLEUUID uuid) const;
+  BLEDescriptor *getByHandle(uint16_t handle) const;
+  String toString() const;
   BLEDescriptor *getFirst();
   BLEDescriptor *getNext();
-  int getRegisteredDescriptorCount();
+  int getRegisteredDescriptorCount() const;
   void removeDescriptor(BLEDescriptor *pDescriptor);
 
   /***************************************************************************
@@ -140,11 +140,17 @@ public:
 
 #if defined(CONFIG_BLUEDROID_ENABLED)
   static const uint32_t PROPERTY_READ = 1 << 0;
+  static const uint32_t PROPERTY_READ_ENC = 0;     // Not supported by Bluedroid. Use setAccessPermissions() instead.
+  static const uint32_t PROPERTY_READ_AUTHEN = 0;  // Not supported by Bluedroid. Use setAccessPermissions() instead.
+  static const uint32_t PROPERTY_READ_AUTHOR = 0;  // Not supported by Bluedroid. Use setAccessPermissions() instead.
   static const uint32_t PROPERTY_WRITE = 1 << 1;
+  static const uint32_t PROPERTY_WRITE_NR = 1 << 5;
+  static const uint32_t PROPERTY_WRITE_ENC = 0;     // Not supported by Bluedroid. Use setAccessPermissions() instead.
+  static const uint32_t PROPERTY_WRITE_AUTHEN = 0;  // Not supported by Bluedroid. Use setAccessPermissions() instead.
+  static const uint32_t PROPERTY_WRITE_AUTHOR = 0;  // Not supported by Bluedroid. Use setAccessPermissions() instead.
   static const uint32_t PROPERTY_NOTIFY = 1 << 2;
   static const uint32_t PROPERTY_BROADCAST = 1 << 3;
   static const uint32_t PROPERTY_INDICATE = 1 << 4;
-  static const uint32_t PROPERTY_WRITE_NR = 1 << 5;
 #endif
 
   /***************************************************************************
@@ -161,8 +167,8 @@ public:
   static const uint32_t PROPERTY_WRITE_ENC = BLE_GATT_CHR_F_WRITE_ENC;
   static const uint32_t PROPERTY_WRITE_AUTHEN = BLE_GATT_CHR_F_WRITE_AUTHEN;
   static const uint32_t PROPERTY_WRITE_AUTHOR = BLE_GATT_CHR_F_WRITE_AUTHOR;
-  static const uint32_t PROPERTY_BROADCAST = BLE_GATT_CHR_F_BROADCAST;
   static const uint32_t PROPERTY_NOTIFY = BLE_GATT_CHR_F_NOTIFY;
+  static const uint32_t PROPERTY_BROADCAST = BLE_GATT_CHR_F_BROADCAST;
   static const uint32_t PROPERTY_INDICATE = BLE_GATT_CHR_F_INDICATE;
 #endif
 
@@ -175,26 +181,26 @@ public:
   virtual ~BLECharacteristic();
 
   void addDescriptor(BLEDescriptor *pDescriptor);
-  BLEDescriptor *getDescriptorByUUID(const char *descriptorUUID);
-  BLEDescriptor *getDescriptorByUUID(BLEUUID descriptorUUID);
-  BLEUUID getUUID();
-  String getValue();
+  BLEDescriptor *getDescriptorByUUID(const char *descriptorUUID) const;
+  BLEDescriptor *getDescriptorByUUID(BLEUUID descriptorUUID) const;
+  BLEUUID getUUID() const;
+  String getValue() const;
   uint8_t *getData();
-  size_t getLength();
+  size_t getLength() const;
   void indicate();
   void notify(bool is_notification = true);
   void setCallbacks(BLECharacteristicCallbacks *pCallbacks);
-  void setValue(uint8_t *data, size_t size);
-  void setValue(String value);
-  void setValue(uint16_t &data16);
-  void setValue(uint32_t &data32);
-  void setValue(int &data32);
-  void setValue(float &data32);
-  void setValue(double &data64);
-  String toString();
-  uint16_t getHandle();
-  void setAccessPermissions(uint8_t perm);
-  esp_gatt_char_prop_t getProperties();
+  void setValue(const uint8_t *data, size_t size);
+  void setValue(const String &value);
+  void setValue(uint16_t data16);
+  void setValue(uint32_t data32);
+  void setValue(int data32);
+  void setValue(float data32);
+  void setValue(double data64);
+  String toString() const;
+  uint16_t getHandle() const;
+  void setAccessPermissions(uint16_t perm);
+  esp_gatt_char_prop_t getProperties() const;
   void setReadProperty(bool value);
   void setWriteProperty(bool value);
   void setNotifyProperty(bool value);
@@ -247,7 +253,7 @@ private:
    ***************************************************************************/
 
   void executeCreate(BLEService *pService);
-  BLEService *getService();
+  BLEService *getService() const;
   void setHandle(uint16_t handle);
 
   /***************************************************************************
